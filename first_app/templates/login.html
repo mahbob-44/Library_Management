@@ -1,0 +1,33 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+    .login{
+        margin: 300px;
+        margin-top: 30px;
+        background-color: hwb(180 16% 66%);
+        padding: 30px;
+        color: white;
+        border-radius: 30px;
+        font-size: small;
+        font-weight: bolder;
+    }
+    .form_cap{
+        text-align: center;
+        font-size: 30px;
+    }
+    
+
+</style>
+{% endblock %}
+{% block content %}
+<form  action="" method="post" class="login">
+    {% csrf_token %}
+    {% for errors in form.non_field_errors %}
+    {{errors}}
+    {% endfor %} 
+    {{ form | crispy }}
+    <br>
+    <button type="submit" class="btn btn-success">Login</button>
+</form>
+{% endblock %}

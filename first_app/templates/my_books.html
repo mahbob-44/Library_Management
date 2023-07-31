@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+  .message{
+    width: 50%;
+    font-size: 30px;
+    color: red;
+    margin: auto;
+  }
+  table{
+    margin: auto;
+    margin-top: 10%;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  tr,td,th{
+    border-width: 2px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px ;
+    padding-bottom: 10pt;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{%if messages %}
+{% for message in messages %} 
+<p class="{{message.tags}}">
+    {{message}}
+</p>
+{%endfor%}
+{% endif %}
+{% if books %}
+    <table border="1" >
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Action</th>
+            <th>Fine</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{book.book.id}}</td>
+            <td>{{book.book.name}}</td>
+            <td><a href="{% url 'return_book' pk=book.book.id %}" class="btn btn-warning btn-sm">Return</a></td>
+            <td>{{book.fine}}</td>
+        </tr> 
+        {% endfor %}
+    </table>
+{% else %}
+<p class="message">Sorry there is no book available</p>
+{% endif %}
+{% endblock %}

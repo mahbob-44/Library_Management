@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block css %}
+<style>
+  .message{
+    width: 50%;
+    margin: auto;
+    font-size: 30px;
+    color: red;
+    font-weight: bolder;
+  }
+  table{
+    margin: auto;
+    margin-top: 10%;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  tr,td,th{
+    border-width: 2px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px ;
+    padding-bottom: 10pt;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% if books %}
+<table >
+  <caption>
+    List of Reserved Books
+  </caption>
+    <thead>
+      <tr>
+        <th >ID</th>
+        <th>Name</th>
+        <th>Availablity</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+      <tr>
+        <td>{{book.id}}</td>
+        <td>{{book.book.name}}</td>
+        <td>{{book.book.is_available}}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="message">There is no reserved book.</p>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+{% block css %}
+<style>
+  
+  .books{
+    width: 1000px;
+    margin-left: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    color: blueviolet;
+    }
+  table{
+    margin: auto;
+    margin-top: 30px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  tr,td,th{
+    border-width: 2px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px ;
+    padding-bottom: 10pt;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% if books %}
+<p class="books">
+  List of Books
+</p>
+<table >
+    <thead>
+      <tr>
+        <th >ID</th>
+        <th>Name</th>
+        {%if user.is_superuser %}
+        <th >Action</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for book in books %}
+      <tr>
+        <td>{{book.id}}</td>
+        <td><a href="{% url 'book_details' pk=book.id %}">{{book.name}}</a></td>
+        {% if user.is_superuser %}
+        <td><a class="btn btn-warning btn-sm" href="{% url 'update_book' pk=book.id %}">Edit</a>
+        <a class="btn btn-danger btn-sm" href="{% url 'delete_book' pk=book.id %}">Delete</a></td>
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="text-align: center; font-size: 30px;">There is no book available.</p>
+  {% endif %}
+  
+{% endblock %}

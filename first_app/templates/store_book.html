@@ -1,0 +1,32 @@
+{% extends 'base.html'%}
+{% load crispy_forms_tags %}
+{% block css %}
+<style>
+    .login{
+        margin: 300px;
+        margin-top: 30px;
+        background-color: hwb(180 16% 66%);
+        padding: 30px;
+        color: white;
+        border-radius: 30px;
+        font-size: small;
+        font-weight: bolder;
+    }
+    .form_cap{
+        text-align: center;
+        font-size: 30px;
+    }
+    
+
+</style>
+{% endblock %}
+{% block content %}
+<form  action="" method="post" class="login">
+    <p class="form_cap">
+        Store a new book 
+    </p>
+    {% csrf_token %}
+    {{ form | crispy}}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

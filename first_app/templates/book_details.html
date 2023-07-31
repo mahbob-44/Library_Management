@@ -1,0 +1,77 @@
+{% extends 'base.html'%}
+{% block css %}
+<style>
+    .warning{
+        width: 30%;
+        padding: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin: auto;
+        background-color: rgb(178, 3, 3);
+        color: white;
+        text-align: center;
+        border-radius: 10px;
+    }
+    .success{
+        width: 30%;
+        padding: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin: auto;
+        background-color: rgb(106, 237, 152);
+        color: rgb(4, 116, 62);
+        text-align: center;
+        border-radius: 10px;
+    }
+    .error{
+        width: 30%;
+        padding: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin: auto;
+        background-color: rgb(248, 0, 0);
+        color: rgb(237, 245, 241);
+        text-align: center;
+        border-radius: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+{% for message in messages %}
+<p class="{{message.tags}}">
+    {{message}}
+</p>
+{% endfor %}
+{% endif %}
+<p>
+   <b>Book Name:</b> {{book.name}}
+</p>
+<p>
+    <b>Author:</b> {{book.author}}
+</p>
+<p>
+    <b>Catagory:</b> {{book.catagory}}
+</p>
+<p>
+    <b>Description:</b> {{book.description}}
+</p>
+<p>
+    <b>Number of copy:</b>   {{book.number_of_copy}}
+</p>
+<p>
+    <b>Availablity</b>: {{book.is_available}}
+</p>
+
+<p>
+    {% if book.is_available %}
+    <a href="{% url 'borrow_request_from_list' pk=book.id %}" class="btn btn-info">Request Borrow</a>
+    {% else %}
+    <p class="reserve">
+        You can reserve this book. Doing this you will get a notification when the book is available. Then you can request to borrow this book.
+    </p>
+    <a href="{% url 'reserve_book_from_book_details' pk=book.id %}" class="btn btn-warning btn-sm">Reserve</a>
+    {% endif %}
+</p>
+{% endblock %}

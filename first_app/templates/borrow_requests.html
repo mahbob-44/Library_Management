@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+{% block css %}
+<style>
+  .request{
+    width: 1000px;
+    margin-left: 400px;
+    font-size: x-large;
+    font-weight: bolder;
+    color: blueviolet;
+    }
+  table{
+    margin: auto;
+    margin-top: 30px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+  tr,td,th{
+    border-width: 2px;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px ;
+    padding-bottom: 10pt;
+  }
+</style>
+{% endblock %}
+{% block content %}
+{% if requests %}
+<p class="request">
+  Borrow requests
+</p>
+<table >
+    <thead>
+      <tr>
+        <th >ID</th>
+        <th>User</th>
+        <th>Book</th>
+        <th>Status</th>
+        {% if user.is_superuser %}
+        <th >Action</th>
+        {% endif %}
+      </tr>
+    </thead>
+    <tbody>
+    {% for request in requests %}
+      <tr>
+        <td>{{request.id}}</td>
+        <td>{{request.user}}</td>
+        <td>{{request.book.name}}</td>
+        <td>{{request.approved}}</td>
+        {% if user.is_superuser %}
+            {% if not request.approved %}
+            <td><a class="btn btn-success btn-sm" href="{% url 'approve_request' pk=request.id %}">Approve</a></td>
+            {% else %}
+            <td><p style="color: green;">Approved</p></td>
+            {% endif %}
+        {% endif %}
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p style="text-align: center; font-size: 30px;">There is no request available.</p>
+  {% endif %}
+  
+{% endblock %}
